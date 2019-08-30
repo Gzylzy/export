@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.utils.export.dao.AttendanceDao">
+
+    <insert id="addAttendance" parameterType="Map">
+        insert into attendance
+        (userID, userName, Time, Year, Month, Day, Hour, Minute, Second, VerifyMode, InoutMode, passWord, enable, privilege)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                #{item.EnrollNumber},
+                #{item.Name},
+                #{item.Time},
+                #{item.Year},
+                #{item.Month},
+                #{item.Day},
+                #{item.Hour},
+                #{item.Minute},
+                #{item.Second},
+                #{item.VerifyMode},
+                #{item.InOutMode},
+                #{item.Password},
+                #{item.Enabled},
+                #{item.Privilege}
+            )
+        </foreach>
+    </insert>
+
+    <select id="getRecentInfo" resultType="String">
+        select Time from attendance order by id desc limit 1
+    </select>
+</mapper>
